@@ -1,0 +1,8 @@
+{
+  "_latest": "0.3.0",
+  "apiEndpoint": "https://blog-desafio-ignite-vitor.prismic.io/api/v2",
+  "libraries": [
+    "@/slices"
+  ],
+  "framework": "previousNext"
+}
