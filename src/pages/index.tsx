@@ -1,21 +1,16 @@
 import { GetStaticProps } from 'next';
 
 import { getPrismicClient } from '../services/prismic';
-
-import Logo from '../../public/images/logo.svg'
+import Prismic from '@prismicio/client';
 
 import commonStyles from '../styles/common.module.scss';
 import styles from './home.module.scss';
-import Image from 'next/image'
 import Header from '../components/Header';
 import Link from 'next/link';
-import { Head } from 'next/document';
-import * as prismic from '@prismicio/client'
 
 import { FiCalendar, FiUser } from 'react-icons/fi';
 
-
-interface Post {
+type Post = {
   uid?: string;
   first_publication_date: string | null;
   data: {
@@ -34,57 +29,70 @@ interface HomeProps {
   postsPagination: PostPagination;
 }
 
-export default function Home() {
-  return(
-    <>
-      <div className={styles.content}>
-        <Header/>
-        <div className={styles.posts}>
-            <Link href='#'>
-              <a>
-              <strong className={styles.postTitle}>Como utilizar Hooks</strong>
-              <p className={styles.postContent}>Pensando em sincronização em vez de ciclos de vida.</p>
-              <span>
-                <p><FiCalendar id={styles.calendar}/>19 Abr 2021</p>
-                <p><FiUser id={styles.user}/>Danilo</p>
-              </span>
-              </a>
-            </Link>
-            <Link href='#'>
-              <a>
-              <strong className={styles.postTitle}>Criando um app CRA do zero</strong>
-              <p className={styles.postContent}>Tudo sobre como criar a sua primeira aplicação utilizando Create React App. Tudo sobre como criar a sua primeira aplicação utilizando Create React App. Tudo sobre como criar a sua primeira aplicação utilizando Create React App</p>
-              <span>
-                <p><FiCalendar id={styles.calendar}/>19 Abr 2021</p>
-                <p><FiUser id={styles.user}/>Danilo</p>
-              </span>
-              </a>
-            </Link>
-            <Link href='#'>
-              <a>
-              <strong className={styles.postTitle}>Como utilizar Hooks</strong>
-              <p className={styles.postContent}>Pensando em sincronização em vez de ciclos de vida.</p>
-              <span>
-                <p><FiCalendar id={styles.calendar}/>19 Abr 2021</p>
-                <p><FiUser id={styles.user}/>Danilo</p>
-              </span>
-              </a>
-            </Link>
-            <button id={styles.loadPost}>Carregar mais posts</button>
-          </div>
-        </div>
-    </>
-  )
+interface PostProps {
+  posts: Post[]
 }
 
-// export const getStaticProps = async () => {
-//   const prismic = getPrismicClient({})
+export default function Home({posts}: PostProps) {
+  return (
+    <>
+      <div className={styles.content}>
+        <Header />
+          <div className={styles.posts}>
+            {posts.map(post => {return(
+              <Link href="#" key={post.uid}>
+              <a>
+                <strong className={styles.postTitle}>
+                  {post.data.title}
+                </strong>
+                <p>
+                  {post.data.subtitle}
+                </p>
+                <span>
+                  <p>
+                    <FiCalendar id={styles.calendar} />
+                    {post.first_publication_date}
+                  </p>
+                  <p>
+                    <FiUser id={styles.user} />
+                    {post.data.author}
+                  </p>
+                </span>
+              </a>
+            </Link>
+            )})}
+            <button id={styles.loadPost}>Carregar mais posts</button>
+          </div>
+      </div>
+    </>
+  );
+}
 
-//   const client = prismic.createClient(endpoint, { routes, accessToken })
+export const getStaticProps: GetStaticProps = async () => {
+  const prismic = getPrismicClient();
 
-//   const postsResponse = await prismic.getByType([prismic.Predicate]);
+  const response = await prismic.query(
+    Prismic.predicates.at('document.type', 'posts'),
+    {
+      pageSize: 3,
+    }
+  );
 
-//   // const getByType;
+  const posts = response.results.map(post => {
+    return {
+      uid: post.uid,
+      first_publication_date: new Date(post.first_publication_date).toLocaleDateString('pt-BR', {
+        day: '2-digit',
+        month: 'long',
+        year: 'numeric',
+    }),
+      data: {
+        title: post.data.title,
+        subtitle: post.data.subtitle,
+        author: post.data.author,
+      },
+    };
+  });
 
-//   // TODO
-// };
+  return { props: {posts} };
+};
