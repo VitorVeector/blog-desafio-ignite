@@ -4,7 +4,7 @@ export default function Header() {
   return (
     <Link href="/">
       <a>
-        <img src='/logo.svg' alt="Logo"/>
+        <img src='/logo.svg' alt="logo"/>
       </a>
     </Link>
   )
