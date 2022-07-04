@@ -1,5 +1,5 @@
 .content{
-    max-width: 1120px;
+    max-width: 700px;
     margin: 4.9719rem auto;
     padding: 0 2rem;
 }
@@ -10,10 +10,6 @@
 
     a {
         display: block;
-
-        &:first-child{
-            margin-top: 4rem;
-        }
 
         & + a {
             margin-top: 3rem;
@@ -43,6 +39,7 @@
                 #user{              
                     margin-right: 8px;
                 }
+
             }
         }
 
