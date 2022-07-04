@@ -1,4 +1,4 @@
-Blog - Space Traveling
+blog-desafio-ignite
 
 
 📚 Informações sobre o projeto
@@ -24,7 +24,7 @@ Utteranc
 # Abra um terminal e copie este repositório com o comando
 $ git clone https://github.com/GBDev13/space-traveling.git
 # Acesse a pasta da aplicação
-$ cd space-traveling
+$ cd blog-desafio-ignite
 
 
 1. Crie um arquivo .env.local e coloque as variaveis de ambiente baseado no arquivo .env.example que se encontra na pasta moveit
