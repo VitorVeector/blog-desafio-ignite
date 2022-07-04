@@ -1,5 +1,5 @@
 Blog - Space Traveling
-mock1
+
 
 📚 Informações sobre o projeto
 Esse blog foi um projeto desenvolvido durante um desafio do Ignite da Rocketseat! A ideia era desenvolver do 0 uma aplicação, desde o front-end até a conexão com o Prismic CMS para a publicação dos posts.
@@ -13,20 +13,12 @@ Uso do sistema estático do Next.js, onde os posts são mantidos no cache para u
 Sistema de comentários usando o Utteranc.
  
 
-mock2
-
- 
-
 🛠️ Tecnologias/Ferramentas ultilizadas
 React
 Next.js
 Prismic CMS
 Utteranc
- 
 
-113493868-cd59b100-94b9-11eb-8506-64061203ce08.gif
-
- 
 
 ⚙️ Instalação
 # Abra um terminal e copie este repositório com o comando
@@ -34,13 +26,14 @@ $ git clone https://github.com/GBDev13/space-traveling.git
 # Acesse a pasta da aplicação
 $ cd space-traveling
 
-# Crie um arquivo .env.local e coloque as variaveis
-# de ambiente baseado no arquivo .env.example que
-# se encontra na pasta moveit
 
-# Instale as dependências
+1. Crie um arquivo .env.local e coloque as variaveis de ambiente baseado no arquivo .env.example que se encontra na pasta moveit
+
+
+2. Instale as dependências
 $ yarn
 
-# Inicie a aplicação
+
+3. Inicie a aplicação
 $ yarn start
 
